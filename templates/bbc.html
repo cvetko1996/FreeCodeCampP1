@@ -1,0 +1,14 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    <div class="container-fluid">
+    {% for article in articles %}
+        <b><a href="{{article.link}}">{{article.title}}</a></b><br />
+        <i>{{article.published}}</i><br />
+        <p>{{article.summary}}</p>
+        <hr />
+    {% endfor %}
+    </div>
+
+{% endblock %}
