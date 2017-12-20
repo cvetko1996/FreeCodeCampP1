@@ -29,6 +29,21 @@ def get_weather(query):
                    }
     return weather
 
+def get_channel_info(query):
+    fquery = str(query)
+    api_url = 'https://wind-bow.glitch.me/twitch-api/users/'
+    url = str(api_url+fquery)
+    data = urlopen(url).read()
+    parsed = json.loads(data.decode('utf-8'))
+    channel_info = None
+    if parsed.get("display_name"):
+        channel_info = {"display_name": parsed['display_name'],
+                   "info": parsed['bio'],
+                   "logo": parsed["logo"]
+                   }
+    return channel_info
+
+
 @app.route('/',methods=['GET','POST'])
 def home():
     city = request.form.get('city')
@@ -48,6 +63,29 @@ def bbc():
     icon = 'http://openweathermap.org/img/w/' + weather['icon'] + '.png'
     feed = feedparser.parse(BBC_FEED)
     return render_template("bbc.html",articles=feed['entries'],weather=weather,icon = icon)
+
+@app.route('/twitch',methods=['GET','POST'])
+def twitch():
+
+    twitch_channel = request.form.get("twitch_name")
+
+    if twitch_channel is None:
+        twitch_channel = "Monstercat"
+
+    channel = get_channel_info(twitch_channel)
+    print(channel)
+
+    city = request.form.get('city')
+
+    if city is None:
+        city = 'London'
+
+    weather = get_weather(city)
+
+    icon = 'http://openweathermap.org/img/w/' + weather['icon'] + '.png'
+
+    return render_template('twitch.html',weather=weather,icon=icon,channel=channel)
+
 
 
 if __name__ == '__main__':

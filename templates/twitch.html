@@ -1,0 +1,56 @@
+{% extends "home.html" %}
+
+{% block content %}
+
+    <div class="container-fluid text-center">
+
+        <br>
+        <div class="row">
+
+            <div class="col-sm-6">
+
+                <h2>Search and watch your favourite twitch channels!</h2>
+
+                <form  method="POST">
+                    <input type="text" class="form-control" name="twitch_name" placeholder="twitch search">
+                    <br>
+                    <input class="btn btn-lg" type="submit" value="Submit">
+                </form>
+                <br>
+            </div>
+            <div class="col-sm-6">
+                <div class="thumbnail">
+                  <img src={{ channel.logo }} style="width:100px;height:100px;" alt={{ channel.display_name }}>
+                  <div class="caption">
+                    <h3>{{ channel.display_name }}</h3>
+                    <p>{{ channel.info }}</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="container-fluid" id="twitch-embed"></div>
+
+
+
+    </div>
+
+    <!-- Load the Twitch embed script -->
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+    <!-- Create a Twitch.Embed object that will render within the "twitch-embed" root element. -->
+    <script type="text/javascript">
+
+    console.log("{{ channel.display_name }}");
+
+    var name = "{{ channel.display_name }}";
+
+      new Twitch.Embed("twitch-embed", {
+        width: "100%",
+        height: "480",
+        channel: name
+      });
+    </script>
+
+{% endblock %}

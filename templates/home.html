@@ -32,7 +32,7 @@
                       <a href="/"><button type="button" class="btn btn-default">WIKI</button></a>
                   </div>
                   <div class="btn-group" role="group">
-                    <button type="button" class="btn btn-default">TWITCH</button>
+                      <a href="/twitch"><button type="button" class="btn btn-default">TWITCH</button></a>
                   </div>
                 </div>
 
@@ -51,8 +51,9 @@
                     <img src={{ icon }} >
                     <h3>Choose another city:</h3>
                     <form  method="POST">
-                        <input type="text" name="city" placeholder="weather search">
-                        <input type="submit" value="Submit">
+                        <input type="text" name="city" class="form-control" placeholder="weather search">
+                        <br>
+                        <input type="submit" class="btn" value="Submit">
                     </form>
 
                     <br>
